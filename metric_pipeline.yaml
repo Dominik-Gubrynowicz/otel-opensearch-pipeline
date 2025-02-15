@@ -1,0 +1,17 @@
+metric-pipeline:
+  workers: 4
+  delay: "1"
+  source:
+    otel_metrics_source:
+      ssl: false
+  processor:
+    - otel_metrics:
+        flatten_attributes: false
+  sink:
+    - opensearch:
+        hosts: [ "https://opensearch-node1:9200" ]
+        insecure: true
+        username: admin
+        password: 1qaz@WSX3edc
+        index: sensors_metrics-otel-%{yyyy.MM.dd}
+        flush_timeout: 5000.000

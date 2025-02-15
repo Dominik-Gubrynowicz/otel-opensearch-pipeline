@@ -1,0 +1,20 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+  
+exporters:
+  otlp/metrics:
+    endpoint: data-prepper:21891
+    tls:
+      insecure: true
+  # otlphttp/metrics:
+  #   metrics_endpoint: http://data-prepper:21891/opentelemetry.proto.collector.metrics.v1.MetricsService/Export
+  debug:
+service:
+  pipelines:
+    metrics:
+      receivers: [otlp]
+      processors: []
+      exporters: [otlp/metrics]
